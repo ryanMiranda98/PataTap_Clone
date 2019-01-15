@@ -156,26 +156,42 @@ var keyData = {
 				})
 	},
 	space:{
-		color: "#1DE9B6",
-		sound: new Howl({
-					src: ['sounds/bubbles.mp3']
-				})
+		// color: "#1DE9B6",
+		// sound: new Howl({
+		// 			src: ['sounds/bubbles.mp3']
+		// 		})
+		color: ['#1DE9B6', '#0277BD', '#A7FFEB', '#FFEE58', '#78909C', '#FFAB40', '#00C853', '#6200EA']
 	}
 }
 
-//create circles
 var point;
 var circle;
 var radius = 300;
 var circleArray = [];
 
 function onKeyDown(event){
-	if(keyData[event.key]){
+	if(keyData[event.key] && event.key != "space"){
+		var sound = keyData[event.key].sound;
+		sound.play();
+
 		point = new Point(view.size.width, view.size.height) * Point.random();
 		circle = new Path.Circle(point, radius);
 		circle.fillColor = keyData[event.key].color;
 		circleArray.push(circle);
-		console.log(circleArray.length);
+	}
+	else 
+	if(event.key === "space"){
+		//returns color array
+		var colors = keyData[event.key].color;
+		var col_length = colors.length;
+		//returns random index from array
+		var bgColorIndex = Math.floor(Math.random() * col_length);
+		//returns color of random index
+		var bgColor = keyData[event.key].color[bgColorIndex];
+		//selects canvas by id
+		var canvas = document.querySelector("#canvas");
+		//sets canvas BG to random color 
+		canvas.style.background = bgColor;
 	}
 }
 
@@ -183,5 +199,11 @@ function onFrame(){
 	for(var i = 0; i < circleArray.length; i++){
 		circleArray[i].fillColor.hue += 1;
 		circleArray[i].scale(0.9);
+
+		if(circleArray[i].area < 1){
+			circleArray[i].remove();
+			circleArray.splice(i, 1);
+			console.log(circleArray.length);
+		}
 	}
 }
