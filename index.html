@@ -6,6 +6,7 @@
 	<title>PataTap</title>
 	<!-- css stylesheet -->
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
 	<!-- howlerJs link -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.js"></script>
 	<!-- paperJs link -->
@@ -13,6 +14,10 @@
 	<script type="text/paperscript" src="paper.js" canvas="canvas"></script>
 </head>
 <body>
-	<canvas id="canvas" resize></canvas>
+	<canvas id="canvas" resize="true"></canvas>
+	<div class="instructions">
+		<span id="title">Instructions:</span>
+		<span id="content">Press any key, a-z or spacebar</span>
+	</div>
 </body>
 </html>
