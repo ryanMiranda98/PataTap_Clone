@@ -164,19 +164,24 @@ var keyData = {
 }
 
 //create circles
-var point = new Point(100, 100);
-var radius = 100;
-var circle = new Path.Circle(point, radius);
-circle.fillColor = "orange";
-
-var circles = [];
+var point;
+var circle;
+var radius = 300;
+var circleArray = [];
 
 function onKeyDown(event){
 	if(keyData[event.key]){
-
+		point = new Point(view.size.width, view.size.height) * Point.random();
+		circle = new Path.Circle(point, radius);
+		circle.fillColor = keyData[event.key].color;
+		circleArray.push(circle);
+		console.log(circleArray.length);
 	}
 }
 
-function onFrame(event){
-	circle.fillColor.hue += 1;
+function onFrame(){
+	for(var i = 0; i < circleArray.length; i++){
+		circleArray[i].fillColor.hue += 1;
+		circleArray[i].scale(0.9);
+	}
 }
